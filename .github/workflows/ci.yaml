@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  merge_group:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6.0.1
+    - uses: actions/setup-go@v6.2.0
+    - run: go test -v ./...
