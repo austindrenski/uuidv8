@@ -1,0 +1,54 @@
+# $schema: https://golangci-lint.run/jsonschema/golangci.jsonschema.json
+version: "2"
+
+formatters:
+  enable:
+  - gofmt
+  - goimports
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  enable:
+  - asciicheck
+  - bodyclose
+  - copyloopvar
+  - decorder
+  - depguard
+  - errcheck
+  - errorlint
+  - exhaustive
+  - gocritic
+  - gosec
+  - govet
+  - misspell
+  - modernize
+  - nolintlint
+  - predeclared
+  - reassign
+  - revive
+  - staticcheck
+  - testifylint
+  - thelper
+  - unconvert
+  - unparam
+  - unused
+  - usestdlibvars
+  - usetesting
+  - wastedassign
+  - whitespace
+  settings:
+    depguard:
+      rules:
+        test:
+          allow:
+          - $gostd
+          - go.austindrenski.io/uuidv8
+          files:
+          - $test
+
+run:
+  allow-parallel-runners: true
+  modules-download-mode: vendor
