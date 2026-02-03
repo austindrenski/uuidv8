@@ -1,9 +1,9 @@
 # uuidv8
 
 [![Go Reference](https://pkg.go.dev/badge/go.austindrenski.io/uuidv8.svg)](https://pkg.go.dev/go.austindrenski.io/uuidv8)
-[![GitHub Actions](https://github.com/austindrenski/uuidv8/actions/workflows/ci.yaml/badge.svg)](https://github.com/austindrenski/uuidv8/actions/workflows/ci.yaml)
-[![Go Report Card](https://goreportcard.com/badge/go.austindrenski.io/uuidv8.svg)](https://goreportcard.com/report/go.austindrenski.io/uuidv8)
-[![GitHub Release](https://img.shields.io/github/v/release/austindrenski/uuidv8.svg)](https://github.com/austindrenski/uuidv8/releases)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/austindrenski/uuidv8/ci.yaml?style=flat-square)](https://github.com/austindrenski/uuidv8/actions/workflows/ci.yaml)
+[![Go Report Card](https://goreportcard.com/badge/go.austindrenski.io/uuidv8?style=flat-square)](https://goreportcard.com/report/go.austindrenski.io/uuidv8)
+[![GitHub Release](https://img.shields.io/github/v/release/austindrenski/uuidv8.svg?style=flat-square)](https://github.com/austindrenski/uuidv8/releases)
 
 This is a reference implementation to construct UUIDs using 64-bit timestamps based on [RFC 9562 §5.8][RFC 9562 §5.8].
 
