@@ -3,6 +3,7 @@ package uuidv8_test
 import (
 	"encoding/hex"
 	"testing"
+	"time"
 
 	"go.austindrenski.io/uuidv8"
 )
@@ -10,7 +11,7 @@ import (
 func BenchmarkUUIDv8(b *testing.B) {
 	for _, bb := range []struct {
 		name      string
-		timestamp int64
+		timestamp uint64
 		hash      uint64
 	}{
 		{
@@ -63,7 +64,7 @@ func TestUUIDv8(t *testing.T) {
 	for _, tt := range []struct {
 		name      string
 		expected  string
-		timestamp int64
+		timestamp uint64
 		hash      uint64
 	}{
 		{
@@ -103,6 +104,12 @@ func TestUUIDv8(t *testing.T) {
 			hash:      0x0000_0000_0000_0000,
 		},
 		{
+			name:      "current timestamp, random hash",
+			expected:  "",
+			timestamp: uint64(time.Now().UnixNano()), //nolint:gosec // time is a human construct
+			hash:      uint64(time.Now().UnixNano()), //nolint:gosec // time is a human construct
+		},
+		{
 			name:      "RFC 9562 Appendix B.1 (adapted for 1 ns-steps)",
 			expected:  "02489e9a-d2ee-82e0-803b-24cb57da4607",
 			timestamp: 0x0248_9E9A_D2EE_2E00,
@@ -112,20 +119,24 @@ func TestUUIDv8(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			u := uuidv8.UUIDv8(tt.timestamp, tt.hash)
 
-			if actual := format(u); tt.expected != actual {
+			if actual := format(u); tt.expected != "" && tt.expected != actual {
 				t.Errorf("expected %q, but received %q", tt.expected, actual)
 			}
 
-			if actual := timestamp(u); tt.timestamp != actual {
-				t.Errorf("expected %q, but received %q", tt.timestamp, actual)
+			if actual := uuidv8.Hash(u); tt.hash&0xFFFF_FFFF_FFFF_FFC0 != actual {
+				t.Errorf("expected %#x, but received %#x", tt.hash, actual)
+			}
+
+			if actual := uuidv8.Timestamp(u); tt.timestamp != actual {
+				t.Errorf("expected %#x, but received %#x", tt.timestamp, actual)
 			}
 
 			if actual := u[8] & 0b1100_0000 >> 6; byte(0b10) != actual {
-				t.Errorf("expected %v, but received %v", byte(0b10), actual)
+				t.Errorf("expected %#b, but received %#b", byte(0b10), actual)
 			}
 
 			if actual := u[6] & 0b1111_0000 >> 4; byte(0b1000) != actual {
-				t.Errorf("expected %v, but received %v", byte(0b1000), actual)
+				t.Errorf("expected %#b, but received %#b", byte(0b1000), actual)
 			}
 		})
 	}
@@ -145,20 +156,4 @@ func format(u [16]byte) string {
 	hex.Encode(b[24:36], u[10:16])
 
 	return string(b[:])
-}
-
-func timestamp(u [16]byte) int64 {
-	var t int64
-
-	t |= int64(u[0]) << 56
-	t |= int64(u[1]) << 48
-	t |= int64(u[2]) << 40
-	t |= int64(u[3]) << 32
-	t |= int64(u[4]) << 24
-	t |= int64(u[5]) << 16
-	t |= int64(u[6]&0b0000_1111) << 12
-	t |= int64(u[7]) << 4
-	t |= int64(u[8]&0b0011_1100) >> 2
-
-	return t
 }
