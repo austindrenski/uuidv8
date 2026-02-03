@@ -24,8 +24,7 @@ There are many potential use cases where constructing a UUIDv8 from a timestamp 
 be adapted to support other timestamp precisions (e.g. 10-ns, 1-ms, 1-s) by modifying the way the timestamp is encoded into the UUIDv8 layout.
 
 _[This is free and unencumbered software released into the public domain.](./LICENSE) You are welcome to use this packackge directly, fork it, or
-simply copy/paste the code without acknowledgement or restriction. (That said, acknowledgement is always appreciated, so consider starring the repo if
-you find it useful!)_
+simply copy/paste the code without acknowledgement or restriction._
 
 ## Installation
 
