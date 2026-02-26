@@ -106,8 +106,8 @@ func TestUUIDv8(t *testing.T) {
 		{
 			name:      "current timestamp, random hash",
 			expected:  "",
-			timestamp: uint64(time.Now().UnixNano()), //nolint:gosec // time is a human construct
-			hash:      uint64(time.Now().UnixNano()), //nolint:gosec // time is a human construct
+			timestamp: uint64(time.Now().UnixNano()),
+			hash:      uint64(time.Now().UnixNano()),
 		},
 		{
 			name:      "RFC 9562 Appendix B.1 (adapted for 1 ns-steps)",
