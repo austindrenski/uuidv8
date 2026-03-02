@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6.0.1
-    - uses: actions/setup-go@v6.2.0
+    - uses: actions/setup-go@v6.3.0
       with:
         cache-dependency-path: go.sum
         go-version-file: go.mod
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6.0.1
-    - uses: actions/setup-go@v6.2.0
+    - uses: actions/setup-go@v6.3.0
       with:
         cache-dependency-path: go.sum
         go-version-file: go.mod
